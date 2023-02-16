@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Order {
+public class OrderModel {
 
     private Integer id;
-    private Client client;
+    private ClientModel client;
     private LocalDate orderDate;
     private BigDecimal total;
 }

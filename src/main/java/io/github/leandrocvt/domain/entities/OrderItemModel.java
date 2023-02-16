@@ -9,11 +9,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderItem {
+public class OrderItemModel {
 
     private Integer id;
-    private Order order;
-    private Product product;
+    private OrderModel order;
+    private ProductModel product;
     private Integer quantity;
 
 }
