@@ -35,10 +35,10 @@ public class VendasApplication {
             System.out.println("Buscando CLientes");
             clientRepository.findallName("cli").forEach(System.out::println);
 
-//            System.out.println("Deletando CLientes");
-//            clientRepository.allClients().forEach(c -> {
-//                clientRepository.delete(c);
-//            });
+            System.out.println("Deletando CLientes");
+            clientRepository.allClients().forEach(c -> {
+                clientRepository.delete(c);
+            });
 
             allClients = clientRepository.allClients();
             if(allClients.isEmpty()){

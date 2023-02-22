@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,52 +16,49 @@ import java.util.List;
 @Repository
 public class ClientRepository {
 
-    private static String INSERT = "insert into client (name) values (?) ";
-    private static String SELECT_ALL = "SELECT * FROM CLIENT";
-    private static String UPDATE = "update client set name = ? where id = ? ";
-    private static String DELETE = "delete from client where id = ? ";
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Transactional
     public ClientModel save(ClientModel clientModel){
-        jdbcTemplate.update(INSERT, new Object[]{clientModel.getName()} );
+        entityManager.persist(clientModel);
         return clientModel;
     }
 
+    @Transactional
     public ClientModel update(ClientModel clientModel){
-        jdbcTemplate.update(UPDATE, new Object[]{
-                clientModel.getName(), clientModel.getId()});
+        entityManager.merge(clientModel);
         return clientModel;
     }
 
+    @Transactional
     public void delete(ClientModel clientModel){
-        delete(clientModel.getId());
+        if (!entityManager.contains(clientModel)){
+            clientModel = entityManager.merge(clientModel);
+        }
+        entityManager.remove(clientModel);
     }
 
+    @Transactional
     public void delete(Integer id){
-        jdbcTemplate.update(DELETE, new Object[]{id});
+        ClientModel clientModel = entityManager.find( ClientModel.class, id );
+        delete(clientModel);
     }
 
+    @Transactional(readOnly = true)
     public List<ClientModel> findallName(String name){
-        return jdbcTemplate.query(
-                SELECT_ALL.concat(" where name like ? "),
-                new Object[]{"%" + name + "%"},
-                findClientMapper());
+        String jpql = " select c from ClientModel c where c.name like :name ";
+        TypedQuery<ClientModel> query = entityManager.createQuery(jpql, ClientModel.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
     }
 
+    @Transactional(readOnly = true)
     public List<ClientModel> allClients(){
-        return jdbcTemplate.query(SELECT_ALL, findClientMapper());
+        return entityManager.createQuery("from ClientModel  ", ClientModel.class).getResultList();
     }
 
-    private RowMapper<ClientModel> findClientMapper() {
-        return new RowMapper<ClientModel>() {
-            @Override
-            public ClientModel mapRow(ResultSet resultSet, int i) throws SQLException {
-                Integer id = resultSet.getInt("id");
-                String nome = resultSet.getString("name");
-                return new ClientModel(id, nome);
-            }
-        };
-    }
 }
