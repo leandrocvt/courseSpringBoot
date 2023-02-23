@@ -1,17 +1,8 @@
 package io.github.leandrocvt.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "client")
 public class ClientModel {
@@ -24,15 +15,45 @@ public class ClientModel {
     @Column(name = "name", length = 100)
     private String name;
 
-    @OneToMany( mappedBy = "client" )
+    @OneToMany( mappedBy = "client", fetch = FetchType.LAZY )
     private Set<OrderModel> orders;
+
+    public ClientModel() {
+    }
 
     public ClientModel(String name) {
         this.name = name;
     }
 
-    public ClientModel(Integer id, String name) {
+    public Set<OrderModel> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderModel> orders) {
+        this.orders = orders;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

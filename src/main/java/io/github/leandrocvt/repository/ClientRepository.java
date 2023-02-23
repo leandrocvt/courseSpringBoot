@@ -9,15 +9,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface ClientRepository extends JpaRepository<ClientModel, Integer> {
+public interface ClientRepository extends JpaRepository<ClientModel, Integer > {
 
-    @Query(value = " select c from ClientModel c where c.name like :name ")
-    List<ClientModel> findByName(@Param("name") String name);
+    @Query(value = " select * from client c where c.name like '%:name%' ", nativeQuery = true)
+    List<ClientModel> findByName( @Param("name") String name);
 
-    @Query(value = " delete from ClientModel c where c.name = :name")
+    @Query(" delete from ClientModel c where c.name = :name ")
     @Modifying
     void deleteByName(String name);
 
     boolean existsByName(String name);
+
+    @Query(" select c from ClientModel c left join fetch c.orders where c.id =:id ")
+    ClientModel findClientFetchOrderRepository( @Param("id") Integer id );
 
 }
