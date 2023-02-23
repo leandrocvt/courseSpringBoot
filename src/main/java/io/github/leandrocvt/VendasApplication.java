@@ -14,38 +14,15 @@ import java.util.List;
 public class VendasApplication {
 
     @Bean
-    public CommandLineRunner init(@Autowired ClientRepository clientRepository){
+    public CommandLineRunner init(@Autowired ClientRepository clientRepository) {
         return args -> {
             System.out.println("Salvando CLientes");
-            clientRepository.save(new ClientModel("Leandro"));
+            clientRepository.save(new ClientModel("Fulano"));
             clientRepository.save(new ClientModel("Outro client"));
 
-            List<ClientModel> allClients = clientRepository.findAll();
-            allClients.forEach(System.out::println);
+            boolean exist = clientRepository.existsByName("Leandro");
+            System.out.println("Existe um cliente com o nome Leandro? " + exist);
 
-            System.out.println("Atualizando CLientes");
-            allClients.forEach(c -> {
-                c.setName(c.getName() + " atualizado");
-                clientRepository.save(c);
-            });
-
-            allClients = clientRepository.findAll();
-            allClients.forEach(System.out::println);
-
-            System.out.println("Buscando CLientes");
-            clientRepository.findByNameLike("cli").forEach(System.out::println);
-
-            System.out.println("Deletando CLientes");
-            clientRepository.findAll().forEach(c -> {
-                clientRepository.delete(c);
-            });
-
-            allClients = clientRepository.findAll();
-            if(allClients.isEmpty()){
-                System.out.println("Nenhum cliente encontrado");
-            }else{
-                allClients.forEach(System.out::println);
-            }
         };
     }
 

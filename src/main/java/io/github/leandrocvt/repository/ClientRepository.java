@@ -10,4 +10,6 @@ public interface ClientRepository extends JpaRepository<ClientModel, Integer> {
 
     List<ClientModel> findByNameLike(String name);
 
+    boolean existsByName(String name);
+
 }
