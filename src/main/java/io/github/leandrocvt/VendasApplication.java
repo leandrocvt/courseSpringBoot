@@ -20,8 +20,8 @@ public class VendasApplication {
             clientRepository.save(new ClientModel("Fulano"));
             clientRepository.save(new ClientModel("Outro client"));
 
-            boolean exist = clientRepository.existsByName("Leandro");
-            System.out.println("Existe um cliente com o nome Leandro? " + exist);
+            List<ClientModel> result = clientRepository.findByName("Leandro");
+            result.forEach(System.out::println);
 
         };
     }
