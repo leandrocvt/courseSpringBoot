@@ -29,7 +29,13 @@ public class ClientController {
         }
 
         return ResponseEntity.notFound().build();
+    }
 
+    @PostMapping()
+    @ResponseBody
+    public ResponseEntity save( @RequestBody ClientModel clientModel){
+        ClientModel clientSave = clientRepository.save(clientModel);
+        return ResponseEntity.ok(clientSave);
     }
 
 }
