@@ -1,19 +1,35 @@
 package io.github.leandrocvt.rest.controller;
 
+import io.github.leandrocvt.domain.entities.ClientModel;
+import io.github.leandrocvt.repository.ClientRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/clients")
 public class ClientController {
 
-    @RequestMapping(value = "/hello/{name}", method = RequestMethod.GET)
+    private ClientRepository clientRepository;
+
+    public ClientController(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
+    @GetMapping("/{id}")
     @ResponseBody
-    public String helloClient(@PathVariable ("name") String nameClient){
-        return String.format("Hello %s ", nameClient);
+    public ResponseEntity findById(@PathVariable Integer id){
+        Optional<ClientModel> clientModel = clientRepository.findById(id);
+
+        if (clientModel.isPresent()){
+            return ResponseEntity.ok(clientModel.get());
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 
 }

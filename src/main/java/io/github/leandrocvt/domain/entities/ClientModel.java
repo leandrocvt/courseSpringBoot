@@ -25,6 +25,11 @@ public class ClientModel {
         this.name = name;
     }
 
+    public ClientModel(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Set<OrderModel> getOrders() {
         return orders;
     }
