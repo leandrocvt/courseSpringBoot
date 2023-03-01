@@ -50,4 +50,13 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody ClientModel clientModel){
+        return clientRepository.findById(id).map( clientExist -> { clientModel.setId(clientExist.getId());
+            clientRepository.save(clientModel);
+            return ResponseEntity.noContent().build();
+        }).orElseGet( () -> ResponseEntity.notFound().build());
+    }
+
 }
