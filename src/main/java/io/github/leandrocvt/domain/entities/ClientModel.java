@@ -1,6 +1,7 @@
 package io.github.leandrocvt.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Cleanup;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +17,9 @@ public class ClientModel {
 
     @Column(name = "name", length = 100)
     private String name;
+
+    @Column(name = "cpf", length = 11)
+    private String cpf;
 
     @JsonIgnore
     @OneToMany( mappedBy = "client", fetch = FetchType.LAZY )
@@ -55,6 +59,14 @@ public class ClientModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override
