@@ -1,7 +1,6 @@
 package io.github.leandrocvt.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Cleanup;
 
 import javax.persistence.*;
 import java.util.Set;
