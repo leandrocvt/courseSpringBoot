@@ -26,14 +26,14 @@ public class OrderModel {
     private BigDecimal total;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderItemModel> itens;
+    private List<OrderItemModel> items;
 
     public List<OrderItemModel> getItens() {
-        return itens;
+        return items;
     }
 
     public void setItens(List<OrderItemModel> itens) {
-        this.itens = itens;
+        this.items = itens;
     }
 
     public Integer getId() {
