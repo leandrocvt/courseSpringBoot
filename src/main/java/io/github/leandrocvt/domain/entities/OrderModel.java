@@ -1,11 +1,17 @@
 package io.github.leandrocvt.domain.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "request")
 public class OrderModel {
@@ -28,52 +34,4 @@ public class OrderModel {
     @OneToMany(mappedBy = "order")
     private List<OrderItemModel> items;
 
-    public List<OrderItemModel> getItens() {
-        return items;
-    }
-
-    public void setItens(List<OrderItemModel> itens) {
-        this.items = itens;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ClientModel getClient() {
-        return client;
-    }
-
-    public void setClient(ClientModel client) {
-        this.client = client;
-    }
-
-    public LocalDate getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderModel{" +
-                "id=" + id +
-                ", orderDate=" + orderDate +
-                ", total=" + total +
-                '}';
-    }
 }

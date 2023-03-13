@@ -1,10 +1,16 @@
 package io.github.leandrocvt.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "client")
 public class ClientModel {
@@ -24,55 +30,9 @@ public class ClientModel {
     @OneToMany( mappedBy = "client", fetch = FetchType.LAZY )
     private Set<OrderModel> orders;
 
-    public ClientModel() {
-    }
-
-    public ClientModel(String name) {
-        this.name = name;
-    }
-
     public ClientModel(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Set<OrderModel> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<OrderModel> orders) {
-        this.orders = orders;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
