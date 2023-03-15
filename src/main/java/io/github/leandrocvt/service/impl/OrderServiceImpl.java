@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +50,11 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setItems(itemsOrder);
 
         return orderModel;
+    }
+
+    @Override
+    public Optional<OrderModel> getFullOrder(Integer id) {
+        return repository.findByIdFetchItems(id);
     }
 
     private List<OrderItemModel> convertItems(OrderModel orderModel, List<OrderItemDTO> items){
