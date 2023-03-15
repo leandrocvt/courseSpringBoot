@@ -1,5 +1,6 @@
 package io.github.leandrocvt.domain.entities;
 
+import io.github.leandrocvt.domain.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,10 @@ public class OrderModel {
 
     @Column(name = "total", precision = 20, scale = 2)
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private OrderStatus status;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItemModel> items;

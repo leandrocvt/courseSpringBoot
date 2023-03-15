@@ -4,6 +4,7 @@ import io.github.leandrocvt.domain.entities.ClientModel;
 import io.github.leandrocvt.domain.entities.OrderItemModel;
 import io.github.leandrocvt.domain.entities.OrderModel;
 import io.github.leandrocvt.domain.entities.ProductModel;
+import io.github.leandrocvt.domain.enums.OrderStatus;
 import io.github.leandrocvt.exception.BusinessRuleException;
 import io.github.leandrocvt.repository.ClientRepository;
 import io.github.leandrocvt.repository.OrderItemRepository;
@@ -43,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setTotal(dto.getTotal());
         orderModel.setOrderDate(LocalDate.now());
         orderModel.setClient(clientModel);
+        orderModel.setStatus(OrderStatus.REALIZED);
 
         List<OrderItemModel> itemsOrder = convertItems(orderModel, dto.getItems());
         repository.save(orderModel);
