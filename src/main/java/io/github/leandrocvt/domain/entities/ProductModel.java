@@ -22,10 +22,10 @@ public class ProductModel {
     private Integer id;
 
     @Column(name = "description")
-    @NotEmpty(message = "Description field is required!")
+    @NotEmpty(message = "{field.description.required}")
     private String description;
 
     @Column(name = "price_unity")
-    @NotNull(message = "Price field is required!")
+    @NotNull(message = "{field.price.required}")
     private BigDecimal priceUnity;
 }
