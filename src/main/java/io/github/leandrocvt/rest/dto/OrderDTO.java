@@ -1,5 +1,6 @@
 package io.github.leandrocvt.rest.dto;
 
+import io.github.leandrocvt.validation.NotEmptyList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,10 @@ import java.util.List;
 public class OrderDTO {
     @NotNull(message = "Enter the customer code!")
     private Integer client;
+
     @NotNull(message = "Order total field is required!")
     private BigDecimal total;
+
+    @NotEmptyList(message = "Order cannot be placed without items!")
     private List<OrderItemDTO> items;
 }
