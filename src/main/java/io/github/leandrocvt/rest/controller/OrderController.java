@@ -2,9 +2,11 @@ package io.github.leandrocvt.rest.controller;
 
 import io.github.leandrocvt.domain.entities.OrderItemModel;
 import io.github.leandrocvt.domain.entities.OrderModel;
+import io.github.leandrocvt.domain.enums.OrderStatus;
 import io.github.leandrocvt.rest.dto.OrderDTO;
 import io.github.leandrocvt.rest.dto.OrderInformationDTO;
 import io.github.leandrocvt.rest.dto.OrderItemInformationDTO;
+import io.github.leandrocvt.rest.dto.UpdateOrderStatusDTO;
 import io.github.leandrocvt.service.OrderService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -40,6 +41,13 @@ public class OrderController {
         return service.getFullOrder(id)
                 .map( o -> convert(o))
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Order not found!"));
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id, @RequestBody UpdateOrderStatusDTO dto){
+        String newStatus = dto.getNewStatus();
+        service.updateStatus(id, OrderStatus.valueOf(newStatus));
     }
 
     private OrderInformationDTO convert(OrderModel orderModel){

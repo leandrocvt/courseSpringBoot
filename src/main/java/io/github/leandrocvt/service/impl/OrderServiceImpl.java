@@ -6,6 +6,7 @@ import io.github.leandrocvt.domain.entities.OrderModel;
 import io.github.leandrocvt.domain.entities.ProductModel;
 import io.github.leandrocvt.domain.enums.OrderStatus;
 import io.github.leandrocvt.exception.BusinessRuleException;
+import io.github.leandrocvt.exception.OrderNotFoundException;
 import io.github.leandrocvt.repository.ClientRepository;
 import io.github.leandrocvt.repository.OrderItemRepository;
 import io.github.leandrocvt.repository.OrderRepository;
@@ -57,6 +58,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<OrderModel> getFullOrder(Integer id) {
         return repository.findByIdFetchItems(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Integer id, OrderStatus orderStatus) {
+        repository.findById(id).map( order -> {
+            order.setStatus(orderStatus);
+            return repository.save(order);
+        }).orElseThrow(() -> new OrderNotFoundException());
     }
 
     private List<OrderItemModel> convertItems(OrderModel orderModel, List<OrderItemDTO> items){
