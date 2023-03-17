@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
@@ -20,8 +22,10 @@ public class ProductModel {
     private Integer id;
 
     @Column(name = "description")
+    @NotEmpty(message = "Description field is required!")
     private String description;
 
     @Column(name = "price_unity")
+    @NotNull(message = "Price field is required!")
     private BigDecimal priceUnity;
 }
