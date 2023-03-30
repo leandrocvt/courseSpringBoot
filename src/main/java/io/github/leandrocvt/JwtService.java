@@ -1,6 +1,8 @@
 package io.github.leandrocvt;
 
 import io.github.leandrocvt.domain.entities.UserModel;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.tomcat.jni.User;
@@ -37,12 +39,42 @@ public class JwtService {
                 .compact();
     }
 
+    public Claims getClaims(String token) throws ExpiredJwtException     {
+        return Jwts
+                .parser()
+                .setSigningKey(signatureKey)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private boolean validToken( String token) {
+        try {
+            Claims claims = getClaims(token);
+            Date dateExpiration = claims.getExpiration();
+            LocalDateTime dateTime = dateExpiration.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            return !LocalDateTime.now().isAfter(dateTime);
+
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public String getUserLogin(String token) throws ExpiredJwtException {
+        return (String) getClaims(token).getSubject();
+    }
+
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(VendasApplication.class);
         JwtService service = context.getBean(JwtService.class);
         UserModel userModel = UserModel.builder().login("leandro").build();
         String token = service.generateToken(userModel);
         System.out.println(token);
+
+        boolean isValidToken = service.validToken(token);
+        System.out.println("Is the token valid? " + isValidToken);
+
+        System.out.println(service.getUserLogin(token));
     }
 
 }
