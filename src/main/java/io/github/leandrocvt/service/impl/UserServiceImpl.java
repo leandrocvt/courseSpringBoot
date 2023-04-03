@@ -1,6 +1,7 @@
 package io.github.leandrocvt.service.impl;
 
 import io.github.leandrocvt.domain.entities.UserModel;
+import io.github.leandrocvt.exception.InvalidPasswordException;
 import io.github.leandrocvt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder encoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -23,6 +24,16 @@ public class UserServiceImpl implements UserDetailsService {
     @Transactional
     public UserModel save(UserModel userModel){
         return userRepository.save(userModel);
+    }
+
+    public UserDetails authenticate(UserModel userModel){
+       UserDetails user = loadUserByUsername(userModel.getLogin());
+       boolean samePasswords = encoder.matches(userModel.getPassword(), user.getPassword());
+
+       if (samePasswords){
+           return user;
+       }
+       throw new InvalidPasswordException();
     }
 
     @Override
