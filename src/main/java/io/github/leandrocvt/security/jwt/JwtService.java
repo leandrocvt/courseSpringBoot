@@ -1,11 +1,11 @@
-package io.github.leandrocvt;
+package io.github.leandrocvt.security.jwt;
 
+import io.github.leandrocvt.VendasApplication;
 import io.github.leandrocvt.domain.entities.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -47,7 +47,7 @@ public class JwtService {
                 .getBody();
     }
 
-    private boolean validToken( String token) {
+    public boolean validToken( String token) {
         try {
             Claims claims = getClaims(token);
             Date dateExpiration = claims.getExpiration();
