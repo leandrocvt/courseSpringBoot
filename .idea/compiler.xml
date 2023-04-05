@@ -11,10 +11,15 @@
         <module name="vendas" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="course-dio" target="17" />
+      <module name="indikey" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="courseSpringBoot" options="-parameters" />
+      <module name="indikey" options="-parameters" />
       <module name="vendas" options="-parameters" />
     </option>
   </component>
