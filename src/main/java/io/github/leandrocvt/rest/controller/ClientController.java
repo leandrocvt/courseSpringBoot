@@ -2,6 +2,7 @@ package io.github.leandrocvt.rest.controller;
 
 import io.github.leandrocvt.domain.entities.ClientModel;
 import io.github.leandrocvt.repository.ClientRepository;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
+@Api("Api Clients")
 public class ClientController {
 
     private ClientRepository clientRepository;
@@ -22,13 +24,23 @@ public class ClientController {
     }
 
     @GetMapping("{id}")
-    public ClientModel findById(@PathVariable Integer id){
+    @ApiOperation("Get a client details")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Client found"),
+            @ApiResponse(code = 404, message = "Client not found by given id")
+    })
+    public ClientModel findById(@PathVariable @ApiParam("Client id") Integer id){
         return clientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found!"));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Save a new client")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Client successfully saved"),
+            @ApiResponse(code = 400, message = "Validation error")
+    })
     public ClientModel save(@RequestBody @Valid ClientModel clientModel){
         return clientRepository.save(clientModel);
     }
