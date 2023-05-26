@@ -50,200 +50,54 @@ O Client-Controller é um componente do sistema responsável por gerenciar as re
 
 ![client-controller](https://github.com/leandrocvt/assets/blob/main/vendas/clientcontroller.png)
 
-- **New _Client_**:
-
-```http
-  POST api/clients
-```
-
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `name` | `String` | Nome do cliente |
-| `cpf` | `String` | CPF do cliente. |
-
-
-```json
-    {
-      "name": "Luciano Hulk",
-      "cpf": "28976408047",
-    }
-```
-
-- **Find by id _Client_**:
-
-```http
-  GET api/clients/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do cliente que você quer buscar. |
-
-- **Find _Client_**:
-
-```http
-  GET api/clients
-```
- Query Params - Consulta por parâmetros. Caso queira consultar um cliente pelo nome ou CPF basta adicionar chave e valor conforme o exemplo a seguir: 
-
-![query-client](https://github.com/leandrocvt/assets/blob/main/vendas/query-client.png)
-
-- **Update _Client_**:
-
-```http
-  PUT api/clients/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `id`      | `Integer` | O ID do cliente que você quer alterar. |
-| `name` | `String` | Nome do cliente atualizado |
-| `cpf` | `String` | CPF do cliente atualizado. |
-
-```json
-    {
-      "name": "Cristiano Ronaldo",
-      "cpf": "58942695043",
-    }
-```
-
-- **DELETE by id _Client_**:
-
-```http
-  DELETE api/clients/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do cliente que você quer apagar. |
-
 <h3>📌 Product-controller</h3>
 O Product-Controller é um componente do sistema responsável por gerenciar as requisições relacionadas aos produtos. Ele implementa uma série de endpoints que permitem criar, consultar, atualizar e deletar produtos da aplicação. <br><br>
 
-![query-client](https://github.com/leandrocvt/assets/blob/main/vendas/productcontroller.png)
-
-- **New _Product_**:
-
-```http
-  POST api/preoducts
-```
-
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `description` | `String` | Nome do produto |
-| `priceUnity` | `Double` | Preço unitário do produto. |
-
-
-```json
-    {
-      "description": "Game",
-      "priceUnity": 70.00
-    }
-```
-
-- **Find by id _Product_**:
-
-```http
-  GET api/preoducts/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do produto que você quer consultar. |
-
-- **Find _Product_**:
-
-```http
-  GET api/products
-```
- Query Params - Consulta por parâmetros. Caso queira consultar um produto pelo nome basta adicionar chave e valor conforme o exemplo a seguir: 
-
-![query-product](https://github.com/leandrocvt/assets/blob/main/vendas/query-product.png)
-
-- **Update _Product_**:
-
-```http
-  PUT api/products/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `id`      | `Integer` | O ID do produto que você quer alterar. |
-| `description` | `String` | Nome do produto atualizado |
-| `priceUnity` | `Double` | Preço unitário do produto atualizado. |
-
-```json
-    {
-      "description": "Game - Good of War",
-      "priceUnity": 150.00
-    }
-```
-
-- **DELETE by id _Product_**:
-
-```http
-  DELETE api/products/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do produto que você quer apagar. |
+![product-controller](https://github.com/leandrocvt/assets/blob/main/vendas/productcontroller.png)
 
 <h3>📌 Order-controller</h3>
 O Order-Controller é um componente do sistema responsável por gerenciar as requisições relacionadas aos pedidos. Ele implementa uma série de endpoints que permitem criar, consultar, atualizar o status do pedido na aplicação. <br><br>
 
 ![order-controller](https://github.com/leandrocvt/assets/blob/main/vendas/ordercontroller.png)
 
-- **New _Order_**:
+[Rotas e Métodos](https://github.com/leandrocvt/courseSpringBoot/blob/main/DETAILS.md)
 
-```http
-  POST api/orders
-```
+# 💻 funcionalidades
 
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `client`      | `Integer` | O ID do cliente que está fazendo o pedido. |
-| `total` | `String` | Total do pedido.  |
-| `items` | `List` | Uma lista de items relacionados ao pedido. |
-| `product` | `Integer` | O ID do produto. |
-| `quantity` | `Integer` | Quantidade do produto. |
+- [x] adiciona usuário
+- [x] autentica usuário cadastrado
+- [x] adiciona um novo cliente
+- [x] retorna todos os clientes
+- [x] retorna cliente por id
+- [x] retorna cliente por nome
+- [x] retorna cliente por CPF
+- [x] remove cliente por ID
+- [x] atualiza cliente por ID
+- [x] adiciona um novo produto
+- [x] retorna todos os produtos
+- [x] retorna produto por descrição (nome)
+- [x] retorna produto por ID
+- [x] remove produto por ID
+- [x] atualiza produto por ID
+- [x] adiciona um novo pedido
+- [x] consulta pedido por ID
+- [x] atualiza status do pedido
 
-```json
-    {
-        "client": 1,
-        "total": 300.00,
-        "items": [
-            {
-                "product": 1,
-                "quantity": 2
-            }   
-        ]
-    }
-```
+# ⚒️ Tecnologias
 
-- **Find by id _Order_**:
+- Java
+- Framework: Spring Boot
+- Spring-web
+- Spring Data JPA
+- Spring Security
+- H2 Database
+- MySQL
+- Validation
+- Lombok
+- JWT
+- Swagger
 
-```http
-  GET api/orders/${id}
-```
+# 👦 Autor
 
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do pedido que você quer consultar. |
-
-- **Update order status _Order_**:
-
-```http
-  PATH api/orders/${id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Integer` | O ID do pedido que você quer atualizar. |
-| `newStatus` | `String` | Novo status do pedido |
-
-```json
-    {
-        "newStatus": "CANCELED"
-    }
-```
+- Linkedin: https://www.linkedin.com/in/leandrocavalcantidev/
+- Email: leandrocavalcanti499@gmail.com
