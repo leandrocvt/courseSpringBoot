@@ -64,7 +64,7 @@ O Client-Controller é um componente do sistema responsável por gerenciar as re
 
 ```json
     {
-      "name": "Leandro Cavalcanti",
+      "name": "Luciano Hulk",
       "cpf": "28976408047",
     }
 ```
@@ -137,7 +137,7 @@ O Product-Controller é um componente do sistema responsável por gerenciar as r
 ```json
     {
       "description": "Game",
-      "priceUnity": 579.50
+      "priceUnity": 70.00
     }
 ```
 
@@ -175,7 +175,7 @@ O Product-Controller é um componente do sistema responsável por gerenciar as r
 ```json
     {
       "description": "Game - Good of War",
-      "priceUnity": 299.99
+      "priceUnity": 150.00
     }
 ```
 
@@ -191,3 +191,59 @@ O Product-Controller é um componente do sistema responsável por gerenciar as r
 
 <h3>📌 Order-controller</h3>
 O Order-Controller é um componente do sistema responsável por gerenciar as requisições relacionadas aos pedidos. Ele implementa uma série de endpoints que permitem criar, consultar, atualizar o status do pedido na aplicação. <br><br>
+
+![order-controller](https://github.com/leandrocvt/assets/blob/main/vendas/ordercontroller.png)
+
+- **New _Order_**:
+
+```http
+  POST api/orders
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `client`      | `Integer` | O ID do cliente que está fazendo o pedido. |
+| `total` | `String` | Total do pedido.  |
+| `items` | `List` | Uma lista de items relacionados ao pedido. |
+| `product` | `Integer` | O ID do produto. |
+| `quantity` | `Integer` | Quantidade do produto. |
+
+```json
+    {
+        "client": 1,
+        "total": 300.00,
+        "items": [
+            {
+                "product": 1,
+                "quantity": 2
+            }   
+        ]
+    }
+```
+
+- **Find by id _Order_**:
+
+```http
+  GET api/orders/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `Integer` | O ID do pedido que você quer consultar. |
+
+- **Update order status _Order_**:
+
+```http
+  PATH api/orders/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `Integer` | O ID do pedido que você quer atualizar. |
+| `newStatus` | `String` | Novo status do pedido |
+
+```json
+    {
+        "newStatus": "CANCELED"
+    }
+```
