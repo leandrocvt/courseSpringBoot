@@ -62,7 +62,7 @@ O Order-Controller é um componente do sistema responsável por gerenciar as req
 
 [Rotas e Métodos](https://github.com/leandrocvt/courseSpringBoot/blob/main/DETAILS.md)
 
-# 💻 funcionalidades
+# 💻 Funcionalidades
 
 - [x] adiciona usuário
 - [x] autentica usuário cadastrado
